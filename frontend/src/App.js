@@ -1,11 +1,19 @@
 import React from "react";
-import "./App.css";
+import { Container } from "react-bootstrap";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="App">
-      <h1>This is the react app</h1>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Container>
+          <h1>Welcome to TheShop</h1>
+        </Container>
+      </main>
+      <Footer />
+    </>
   );
 }
 
