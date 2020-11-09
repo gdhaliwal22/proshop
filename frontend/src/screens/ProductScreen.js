@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Row,
@@ -10,10 +10,27 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
-import products from "../products";
+import axios from 'axios'
+
+
 
 const ProductScreen = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const [product, setProduct] = useState(null);
+ 
+useEffect(() => {
+  const fetchProduct = async () => {
+    const product = await axios.get(`/api/products/${match.params.id}`);
+    setProduct(product.data);
+  };
+ 
+  fetchProduct();
+}, [match]);
+ 
+// render nothing during the time product is loading
+if (!product) return null;
+
+  
+
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">
@@ -22,7 +39,7 @@ const ProductScreen = ({ match }) => {
       <Row>
         <Col md={6}>
           {/* Fluid keeps image in container */}
-          <Image src={product.image} alt={product.name} fluid />
+          <Image src={product.image} alt={product.name} />
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
