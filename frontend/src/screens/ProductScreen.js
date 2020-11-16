@@ -16,20 +16,20 @@ import axios from 'axios'
 
 const ProductScreen = ({ match }) => {
   const [product, setProduct] = useState(null);
- 
-useEffect(() => {
-  const fetchProduct = async () => {
-    const product = await axios.get(`/api/products/${match.params.id}`);
-    setProduct(product.data);
-  };
- 
-  fetchProduct();
-}, [match]);
- 
-// render nothing during the time product is loading
-if (!product) return null;
 
-  
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const data = await axios.get(`/api/products/${match.params.id}`);
+      setProduct(data);
+    };
+
+    fetchProduct();
+  }, [match]);
+
+  // render nothing during the time product is loading
+  if (!product) return null;
+
+
 
   return (
     <>
